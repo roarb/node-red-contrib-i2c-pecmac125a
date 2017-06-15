@@ -27,9 +27,13 @@
 	<div class="form-tips">Scan for connected devices on I2C.</div>
 </script>
 
-<script type="text/x-red" data-help-name="i2c scan">
+<script type="text/x-red" data-help-name="i2c-scan">
     <p>Reads data from a local I2C port (default 0x2A)</p>
     <p>Shows a list of connected I2C devices at their numeric address.</p>
+    <hr>
+    <p>Input can be anything, it is not used, the setup i2c device is all that is used.</p>
+    <p>Output 1, msg.payload is an Array of numeric ports that are currently connected to I2C.</p>
+    <p>Output 2, msg is sent for each of Output 1's arrays. msg.payload is the numeric port address, msg.address is also the numeric port address.</p>
 
 </script>
 
@@ -47,6 +51,44 @@
         label: function() {
             var I2CNode = RED.nodes.node(this.i2cdevice);
             return this.name||('Scan '+(I2CNode?I2CNode.label().split("/")[2]:"i2c-?"));
+        },
+        labelStyle: function() {
+            return this.name?"node_label_italic":"";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="i2c-current-amps-pecmac125a">
+    <div class="form-row">
+        <label for="node-input-i2cdevice"><i class="fa fa-globe"></i> I2C Device</label>
+        <input type="text" id="node-input-i2cdevice">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+	<div class="form-tips">Get PECMAC125A Board Current via I2C.</div>
+</script>
+
+<script type="text/x-red" data-help-name="i2c-current-amps-pecmac125a">
+    <p>Reads data from a local I2C PECMAC125A board on defined port (default 0x2A)</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('i2c-current-amps-pecmac125a',{
+        category: 'input',
+        defaults: {
+		    i2cdevice: {type:"i2c-device-pecmac125a", required:true},
+            name: {name:""}
+        },
+        color:"#00e66c",
+        inputs:1,
+        outputs:1,
+        icon: "serial.png",
+        label: function() {
+            var I2CNode = RED.nodes.node(this.i2cdevice);
+            return this.name||('Read Current From '+(I2CNode?I2CNode.label().split("/")[2]:"i2c-?"));
         },
         labelStyle: function() {
             return this.name?"node_label_italic":"";
