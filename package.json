@@ -1,0 +1,51 @@
+{
+  "author": {
+    "name": "Rob Hoehn",
+    "email": "rhoehn24@gmail.com",
+    "url": "https://github.com/roarb/node-red-i2c-pecmac125a"
+  },
+  "bugs": {
+    "url": "https://github.com/roarb/node-red-i2c-pecmac125a/issues"
+  },
+  "dependencies": {
+    "i2c": "^0.2.3"
+  },
+  "description": "A Node-RED communications with Controll Everything's PECMAC125A current boards",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "",
+    "tarball": ""
+  },
+  "gitHead": "",
+  "homepage": "https://github.com/roarb/node-red-i2c-pecmac125a#readme",
+  "keywords": [
+    "node-red",
+    "node-red-pecmac125a",
+    "i2c"
+  ],
+  "license": "Apache-2.0",
+  "main": "i2c-pecmac125a.js",
+  "maintainers": [
+    {
+      "name": "Rob Hoehn",
+      "email": "rhoehn24@gmail.com"
+    }
+  ],
+  "name": "node-red-i2c-pecmac125a",
+  "node-red": {
+    "nodes": {
+      "I2C PECMAC125A": "i2c/i2c-pecmac125a.js"
+    }
+  },
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roarb/node-red-i2c-pecmac125a.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.1.0"
+}
