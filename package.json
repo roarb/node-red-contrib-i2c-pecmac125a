@@ -39,13 +39,10 @@
     }
   },
   "optionalDependencies": {},
-  "readme": "ERROR: No README data found!",
+  "readme": "https://github.com/roarb/node-red-i2c-pecmac125a#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/roarb/node-red-i2c-pecmac125a.git"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "version": "0.1.0"
 }

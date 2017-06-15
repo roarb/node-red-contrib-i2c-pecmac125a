@@ -5,8 +5,8 @@ module.exports = function(RED) {
     // The Server Definition - this opens (and closes) the connection
     function I2CServerNode(n) {
         RED.nodes.createNode(this, n);
-        this.device = n.device || "/dev/I2C-1";
-        this.address = n.address || 0x18;
+        this.device = n.device || "/dev/i2c-1";
+        this.address = n.address || 0x2A;
         this.port = null;
         this.on("close", function() {
             if (this.port != null) {
@@ -14,7 +14,7 @@ module.exports = function(RED) {
             }
         });
     }
-    RED.nodes.registerType("i2c-device", I2CServerNode);
+    RED.nodes.registerType("i2c-device-pecmac125a", I2CServerNode);
 
 
     // The Input Node
@@ -64,7 +64,7 @@ module.exports = function(RED) {
             //   node.port.free();
         });
     }
-    RED.nodes.registerType("i2c in", I2CInNode);
+    RED.nodes.registerType("i2c-in-pecmac125a", I2CInNode);
 
 
     // The Output Node
@@ -120,7 +120,7 @@ module.exports = function(RED) {
             //     node.port.free();
         });
     }
-    RED.nodes.registerType("i2c out", I2COutNode);
+    RED.nodes.registerType("i2c-out-pecmac125a", I2COutNode);
 
     // The Output Node
     function I2CScanNode(n) {
@@ -161,5 +161,5 @@ module.exports = function(RED) {
             //   node.port.free();
         });
     }
-    RED.nodes.registerType("i2c scan", I2CScanNode);
+    RED.nodes.registerType("i2c-scan", I2CScanNode);
 }
