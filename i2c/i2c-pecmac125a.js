@@ -32,19 +32,17 @@ module.exports = function(RED) {
 			node.serverConfig.port = new I2C(parseInt(this.serverConfig.address), {device: node.serverConfig.device});
 		}
 		node.port = node.serverConfig.port;
-		// look to stream this on repeat instead....
+
 		//node.on("input", function(msg) {  
 		setInterval(function(){        
-            //var address = 0x30;
             var address = node.serverConfig.port.address;
             var wire = new I2C(address, {device: '/dev/i2c-1', debug: false});
             var readConfigCommand = [0x92, 0x6A, 0x02, 0x00, 0x00, 0x00, 0x00, 0xFE];
 			wire.write(readConfigCommand, function(err){
-				if (err) { console.log(err); }
-				
-				var typeOfSensor = '', maxCurrent = '', noOfChannels = '';
-				//setInterval(function(){
-					
+				if (err) { 
+					console.log(err); 
+				} else {								
+					var typeOfSensor = '', maxCurrent = '', noOfChannels = '';				
 					wire.readBytes(0x55, 3, function(err, res){
 					//wire.read(3, function(err, res){
 						// result contains a buffer of bytes
@@ -55,6 +53,9 @@ module.exports = function(RED) {
 						//console.log("Type of Sensor: "+typeOfSensor);
 						//console.log("Max Current: "+maxCurrent);
 						//console.log("No of Channels: "+noOfChannels);
+						if (noOfChannels > 3 || noOfChannels == 0){
+							return;
+						}
 						
 						// get the current read
 						var readCurrentCommand = [0x92, 0x6A, 0x01, 0x01, 0x0C, 0x00, 0x00, 0x0A];
@@ -64,42 +65,30 @@ module.exports = function(RED) {
 							//# PECMAC125A address, 0x30 - updated from 0x2A
 							//# Read data back from 0x55(85), No. of Channels * 3 bytes
 							//# current MSB1, current MSB, current LSB
-							//data1 = bus.read_i2c_block_data(0x30, 0x55, noOfChannel*3)
 							wire.readBytes(0x55, noOfChannels * 3, function(err, res){
-							//wire.read(noOfChannels * 3, function(err, res){
 								if (err) { console.log(err); }
-								//console.log(res);
-								setTimeout(writeCurrent, 500);
-								function writeCurrent(){
-									//# Convert the data
-									//for i in range(0, noOfChannel) :
-									//	msb1 = data1[i * 3]
-									//	msb = data1[1 + i * 3]
-									//	lsb = data1[2 + i * 3]
-										
-									//	# Convert the data to ampere
-									//	current = (msb1 * 65536 + msb * 256 + lsb) / 1000.0
-										
+								//setTimeout(writeCurrent, 300);
+								//function writeCurrent(){									
 									var msb1 = 0, msb = 0, lsb = 0, current = 0;
 									for (var i = 0; i < noOfChannels; i++){
+										//# Convert the data	
 										msb1 = res[i*3];
 										msb = res[1 + i*3];
 										lsb = res[2 + i*3];
+										//	# Convert the data to ampere
 										current = (msb1 * 65536 + msb * 256 + lsb) / 1000.0;
-										console.log("Channel no : "+i+1);
-										console.log("Current Value : "+current+" A");
+										//console.log("Channel no : "+(i+1)+" Current Value : "+current+" A");
 										// return to the node's output
 										node.send({payload: {"amps":current}});
 									}
-								}
+								//}
 							});
 						});
 					});
-					
-				//}, 1000);
-					
+				}
+						
 			});
-        //});
+
         }, 1000);
 
         node.on("close", function() {
