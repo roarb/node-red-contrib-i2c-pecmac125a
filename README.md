@@ -1,4 +1,4 @@
-# node-red-i2c-pecmac125a
+# node-red-contrib-i2c-pecmac125a
 NodeRED - Node to read current from a Control Everything PECMAC125A current sensor board connected via I2C.
 
 Board is available at : https://www.controleverything.com
