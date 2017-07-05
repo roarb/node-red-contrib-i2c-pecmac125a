@@ -1,4 +1,50 @@
 {
+  "_args": [
+    [
+      {
+        "raw": "node-red-i2c-pecmac125a",
+        "scope": null,
+        "escapedName": "node-red-i2c-pecmac125a",
+        "name": "node-red-i2c-pecmac125a",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/home/pi/.node-red"
+    ]
+  ],
+  "_from": "node-red-i2c-pecmac125a@latest",
+  "_id": "node-red-i2c-pecmac125a@0.1.2",
+  "_inCache": true,
+  "_location": "/node-red-i2c-pecmac125a",
+  "_nodeVersion": "6.11.0",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/node-red-i2c-pecmac125a-0.1.0.tgz_1497901412122_0.09628994553349912"
+  },
+  "_npmUser": {
+    "name": "rohoin",
+    "email": "rhoehn24@gmail.com"
+  },
+  "_npmVersion": "3.10.10",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "node-red-i2c-pecmac125a",
+    "scope": null,
+    "escapedName": "node-red-i2c-pecmac125a",
+    "name": "node-red-i2c-pecmac125a",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/node-red-i2c-pecmac125a/-/node-red-i2c-pecmac125a-0.1.0.tgz",
+  "_shasum": "a56f86dac413b5afe30af95668935e4409d044da",
+  "_shrinkwrap": null,
+  "_spec": "node-red-i2c-pecmac125a",
+  "_where": "/home/pi/.node-red",
   "author": {
     "name": "Rob Hoehn",
     "email": "rhoehn24@gmail.com",
@@ -14,8 +60,8 @@
   "devDependencies": {},
   "directories": {},
   "dist": {
-    "shasum": "",
-    "tarball": ""
+    "shasum": "a56f86dac413b5afe30af95668935e4409d044da",
+    "tarball": "https://registry.npmjs.org/node-red-i2c-pecmac125a/-/node-red-i2c-pecmac125a-0.1.0.tgz"
   },
   "gitHead": "",
   "homepage": "https://github.com/roarb/node-red-i2c-pecmac125a#readme",
@@ -32,17 +78,18 @@
       "email": "rhoehn24@gmail.com"
     }
   ],
-  "name": "node-red-i2c-pecmac125a",
+  "name": "node-red-contrib-i2c-pecmac125a",
   "node-red": {
     "nodes": {
       "I2C PECMAC125A": "i2c/i2c-pecmac125a.js"
     }
   },
   "optionalDependencies": {},
-  "readme": "https://github.com/roarb/node-red-i2c-pecmac125a#readme",
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/roarb/node-red-i2c-pecmac125a.git"
   },
-  "version": "0.1.0"
+  "scripts": {},
+  "version": "0.1.3"
 }

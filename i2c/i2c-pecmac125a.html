@@ -14,50 +14,6 @@
   limitations under the License.
 -->
 
-<!-- <script type="text/x-red" data-template-name="i2c-scan">
-    <div class="form-row">
-        <label for="node-input-i2cdevice"><i class="fa fa-globe"></i> I2C Device</label>
-        <input type="text" id="node-input-i2cdevice">
-    </div>
-
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
-    </div>
-	<div class="form-tips">Scan for connected devices on I2C.</div>
-</script>
-
-<script type="text/x-red" data-help-name="i2c-scan">
-    <p>Reads data from a local I2C port (default 0x2A)</p>
-    <p>Shows a list of connected I2C devices at their numeric address.</p>
-    <hr>
-    <p>Input can be anything, it is not used, the setup i2c device is all that is used.</p>
-    <p>Output 1, msg.payload is an Array of numeric ports that are currently connected to I2C.</p>
-    <p>Output 2, msg is sent for each of Output 1's arrays. msg.payload is the numeric port address, msg.address is also the numeric port address.</p>
-
-</script>
-
-<script type="text/javascript">
-    RED.nodes.registerType('i2c-scan',{
-        category: 'input',
-        defaults: {
-		    i2cdevice: {type:"i2c-device-pecmac125a", required:true},
-            name: {name:""}
-        },
-        color:"#00e66c",
-        inputs:1,
-        outputs:2,
-        icon: "serial.png",
-        label: function() {
-            var I2CNode = RED.nodes.node(this.i2cdevice);
-            return this.name||('Scan '+(I2CNode?I2CNode.label().split("/")[2]:"i2c-?"));
-        },
-        labelStyle: function() {
-            return this.name?"node_label_italic":"";
-        }
-    });
-</script> -->
-
 <!-- Input Amps -->
 <script type="text/x-red" data-template-name="i2c-current-amps-pecmac125a">
     <div class="form-row">
@@ -97,197 +53,6 @@
     });
 </script>
 
-<!-- Stream Amps -->
-<!-- <script type="text/x-red" data-template-name="i2c-stream-amps-pecmac125a">
-    <div class="form-row">
-        <label for="node-input-i2cdevice"><i class="fa fa-globe"></i> I2C Device</label>
-        <input type="text" id="node-input-i2cdevice">
-    </div>
-
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
-    </div>
-	<div class="form-tips">Stream PECMAC125A Board Current via I2C.</div>
-</script>
-
-<script type="text/x-red" data-help-name="i2c-stream-amps-pecmac125a">
-    <p>Streams data from a local I2C PECMAC125A board on defined port (default 0x2A)</p>
-</script>
-
-<script type="text/javascript">
-    RED.nodes.registerType('i2c-stream-amps-pecmac125a',{
-        category: 'input',
-        defaults: {
-		    i2cdevice: {type:"i2c-device-pecmac125a", required:true},
-            name: {name:""}
-        },
-        color:"#00e66c",
-        inputs:0,
-        outputs:1,
-        icon: "serial.png",
-        label: function() {
-            var I2CNode = RED.nodes.node(this.i2cdevice);
-            return this.name||('Stream Current From '+(I2CNode?I2CNode.label().split("/")[2]:"i2c-?"));
-        },
-        labelStyle: function() {
-            return this.name?"node_label_italic":"";
-        }
-    });
-</script> -->
-
-<!--
-<script type="text/x-red" data-template-name="i2c-in-pecmac125a">
-    <div class="form-row">
-        <label for="node-input-i2cdevice"><i class="fa fa-globe"></i> I2C device</label>
-        <input type="text" id="node-input-i2cdevice">
-    </div>
-    <div class="form-row">
-        <label for="node-input-address"><i class="fa fa-random"></i> address</label>
-        <input type="text" id="node-input-address" class="I2C-in-address" placeholder="[msg.address]">
-    </div>
-   <div class="form-row">
-        <label for="node-input-command"><i class="fa fa-random"></i> Command</label>
-        <input type="text" id="node-input-command" class="I2C-in-command" placeholder="[msg.command]">
-    </div>
-   <div class="form-row">
-        <label for="node-input-count"><i class="fa fa-random"></i> Returning Length</label>
-        <input type="number" id="node-input-count" class="I2C-in-count"  placeholder="1">
-    </div>
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
-    </div>
-    <div class="form-tips">
-		<p>This didn't make any sense -> The address to join must start with a # (as per normal i2c rules...)<br/>
-		You may join multiple addresss by comma separating a list - #chan1,#chan2,etc.</p>
-		<p>So we'll need to add a new tooltip in here that does.</p>
-    </div>
-</script>
-
-<script type="text/x-red" data-help-name="i2c-in-pecmac125a">
-    <p>Reads data from a local I2C port. (default 0x2A)</p>
-    <p>It will put a byte array into the msg.payload.</p>
-</script>
-
-<script type="text/javascript">
-    RED.nodes.registerType('i2c-in-pecmac125a',{
-        category: 'input',
-        defaults: {
-            name: {value:""},
-            i2cdevice: {type:"i2c-device-pecmac125a", required:true},
-            address: {value:"0x2A",required:true},
-            command: {value:"",required:false},
-            count: {value:"1",required:true}
-        },
-        color:"#00e66c",  
-        inputs:1,
-        outputs:1,
-        icon: "serial.png",
-        label: function() {
-            var I2CNode = RED.nodes.node(this.i2cdevice);
-            return this.name||("Read from "+(I2CNode?I2CNode.label().split("/")[2]:"I2C-?"));
-        },
-        labelStyle: function() {
-            return this.name?"node_label_italic":"";
-        }
-    });
-        $(".I2C-in-address").spinner({
-            min:1,
-			max:127
-        });
-        $(".I2C-in-command").spinner({
-            min:0,
-			max:255
-        });
-        $(".I2C-in-count").spinner({
-            min:0,
-			max:31
-        });
-</script>
--->
-<!--
-<script type="text/x-red" data-template-name="i2c-out-pecmac125a">
-    <div class="form-row">
-        <label for="node-input-i2cdevice"><i class="fa fa-globe"></i> I2C device</label>
-        <input type="text" id="node-input-i2cdevice">
-    </div>
-    <div class="form-row">
-        <label for="node-input-address"><i class="fa fa-random"></i> Address</label>
-        <input type="text" id="node-input-address" class="I2C-out-address" placeholder="[msg.address]" min=0 max=127>
-    </div>
-    <div class="form-row">
-        <label for="node-input-command"><i class="fa fa-random"></i> Command</label>
-        <input type="text" id="node-input-command" class="I2C-out-command" placeholder="[msg.command]" min=0 max=255>
-    </div>
-
-    <div class="form-row">
-        <label for="node-input-payload"><i class="fa fa-random"></i> Payload</label>
-        <input type="text" id="node-input-payload" class="I2C-out-command" placeholder="[msg.payload]">
-    </div>
-   <div class="form-row">
-        <label for="node-input-count"><i class="fa fa-random"></i> Send bytes</label>
-        <input type="number" id="node-input-count" class="I2C-out-count"  placeholder="1">
-    </div>
-
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
-    </div>
-    <div class="form-tips">
-		<p>This didn't make any sense -> The address to join must start with a # (as per normal i2c rules...)<br/>
-		You may join multiple addresss by comma separating a list - #chan1,#chan2,etc.</p>
-		<p>So we'll need to add a new tooltip in here that does.</p>
-    </div>
-</script>
-
-<script type="text/x-red" data-help-name="i2c-out-pecmac125a">
-    <p>Provides a connection to an outbound I2C address. (default 0x2A)</p>
-    <p>Only the <b>msg.payload</b> is sent.</p>
-	<p>address <b>0</b> means that you will broadcast to all I2C-units on the I2C bus.</p>
-	<p>the <b>Send bytes</b> is used to set the number bytes that will be used when the payload is a number</P>
-    <p>The <b>payload</b> and <b>msg.payload</b> can be a Buffer, Array, String or Integer</p>	
-</script>
-
-<script type="text/javascript">
-    RED.nodes.registerType('i2c-out-pecmac125a',{
-        category: 'output',
-        defaults: {
-            name: {value:""},
-            i2cdevice: {type:"i2c-device-pecmac125a", required:true},
-            address: {value:"",required:false},
-            command: {value:"", required:false},
-            payload: {value:"", required:false},
-            count: {value:"1", required:true}
-        },
-        color:"#00e66c",
-        inputs:1,
-        outputs:0,
-        icon: "serial.png",
-        align: "right",
-        label: function() {
-            var I2CNode = RED.nodes.node(this.i2cdevice);
-            return this.name||('Send to '+(I2CNode?I2CNode.label().split("/")[2]:"I2C-?"));
-        },
-        labelStyle: function() {
-            return this.name?"node_label_italic":"";
-        }
-    });
-		$(".I2C-out-address").spinner({
-            min:0,
-			max:255
-        });
-       $(".I2C-out-command").spinner({
-            min:0,
-			max:255
-        });
-       $(".I2C-out-count").spinner({
-            min:0,
-			max:6
-        });
-</script>
--->
-
 <script type="text/x-red" data-template-name="i2c-device-pecmac125a">
     <div class="form-row">
         <label for="node-config-input-device"><i class="fa fa-globe"></i> I2C Device</label>
@@ -297,6 +62,10 @@
         <label for="node-config-input-address"><i class="fa fa-user"></i> Default Address</label>
         <input type="text" id="node-config-input-address" placeholder="0x2A">
     </div>
+    <div class="form-row">
+		<label for="node-config-frequency"><i class="fa fa-bolt"></i> Check Frequency (ms)</label>
+		<input type="number" id="node-config-frequency" placeholder="500">
+    </div>
 </script>
 
 <script type="text/javascript">
@@ -304,15 +73,12 @@
         category: 'config',
         defaults: {
             device: {value:"",required:true},
-            address: {value:"0x2A",required:true}
+            address: {value:"0x2A",required:true},
+            frequency: {value:500, rquired:false}
         },
         label: function() {
             return this.device;
         }
     });
-    $("#node-config-input-address").spinner({
-            min:0,
-			max:255
-        });
 
 </script>
