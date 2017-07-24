@@ -78,7 +78,7 @@
       "email": "rhoehn24@gmail.com"
     }
   ],
-  "name": "node-red-contrib-i2c-pecmac125a",
+  "name": "node-red-i2c-pecmac125a",
   "node-red": {
     "nodes": {
       "I2C PECMAC125A": "i2c/i2c-pecmac125a.js"

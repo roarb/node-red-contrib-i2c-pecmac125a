@@ -30,6 +30,13 @@
 
 <script type="text/x-red" data-help-name="i2c-current-amps-pecmac125a">
     <p>Reads data from a local I2C PECMAC125A board on defined port (default 0x2A)</p>
+    <p>Select channel number 1-4:
+    <ul>
+		<li>1: Pi Device</li>
+		<li>2: Single Phase &amp; Three Phase 1</li>
+		<li>3: Three Phase 2</li>
+		<li>4: Three Phase 3</li>
+    </ul></p>
 </script>
 
 <script type="text/javascript">
@@ -56,11 +63,16 @@
 <script type="text/x-red" data-template-name="i2c-device-pecmac125a">
     <div class="form-row">
         <label for="node-config-input-device"><i class="fa fa-globe"></i> I2C Device</label>
-        <input type="text" id="node-config-input-device" placeholder="/dev/i2c-1" style="width: 45%;" >
+        <!--input type="text" id="node-config-input-device" placeholder="/dev/i2c-1" style="width: 45%;"-->
+        <input type="text" id="node-config-input-device" placeholder="" style="width: 45%;" >
     </div>
     <div class="form-row">
-        <label for="node-config-input-address"><i class="fa fa-user"></i> Default Address</label>
+        <label for="node-config-input-address"><i class="fa fa-home"></i> Default Address</label>
         <input type="text" id="node-config-input-address" placeholder="0x2A">
+    </div>
+    <div class="form-row">
+		<label for="node-config-input-channel"><i class="fa fa-align-left"></i> Channel</label>
+		<input type="number" id="node-config-input-channel" placeholder="1">
     </div>
     <div class="form-row">
 		<label for="node-config-frequency"><i class="fa fa-bolt"></i> Check Frequency (ms)</label>
@@ -72,8 +84,9 @@
     RED.nodes.registerType('i2c-device-pecmac125a',{
         category: 'config',
         defaults: {
-            device: {value:"",required:true},
-            address: {value:"0x2A",required:true},
+            device: {value:"", required:true},
+            address: {value:"0x2A", required:true},
+            channel: {value:"1", required:true},
             frequency: {value:500, rquired:false}
         },
         label: function() {

@@ -5,8 +5,12 @@ module.exports = function(RED) {
     // The Server Definition - this opens (and closes) the connection
     function I2CServerNode(n) {
         RED.nodes.createNode(this, n);
-        this.device = n.device || "/dev/i2c-1";
-        this.address = n.address || 0x2A;
+        //this.device = n.device || "/dev/i2c-1";
+        this.deviceId = n.device || "";
+        this.device = "/dev/i2c-1";
+        //this.address = n.address || 0x2A;
+        this.address = n.address || 0x30;
+        this.channel = n.channel || 1;
         this.frequency = parseInt(n.frequency) || 500;
         this.port = null;
         this.on("close", function() {
@@ -33,14 +37,16 @@ module.exports = function(RED) {
 			node.serverConfig.port = new I2C(parseInt(this.serverConfig.address), {device: node.serverConfig.device});
 		}
 
-		setInterval(function(){        
+		setInterval(function(){   
             var address = node.serverConfig.port.address;
+            var channel = parseInt(node.serverConfig.channel);
             var readConfigCommand = [0x92, 0x6A, 0x02, 0x00, 0x00, 0x00, 0x00, 0xFE];
 			node.serverConfig.port.write(readConfigCommand, function(err){
 				if (err) { 
-					console.log(err); 
-					return
-				} else {								
+					console.log(err);
+					node.send({error: true});
+					return;
+				} else {							
 					var typeOfSensor = '', maxCurrent = '', noOfChannels = '';				
 					node.serverConfig.port.readBytes(0x55, 3, function(err, res){
 						if (err) { console.log(err); }
@@ -48,7 +54,9 @@ module.exports = function(RED) {
 						maxCurrent = res[1];
 						noOfChannels = res[2];
 
-						if (noOfChannels > 3 || noOfChannels == 0){
+						if (noOfChannels > 4 || noOfChannels == 0){
+							console.log(res);
+							console.log("err in noOfChannels check: "+noOfChannels);
 							return;
 						}
 						
@@ -64,14 +72,16 @@ module.exports = function(RED) {
 								if (err) { console.log(err); }					
 								var msb1 = 0, msb = 0, lsb = 0, current = 0;
 								for (var i = 0; i < noOfChannels; i++){
-									//# Convert the data	
-									msb1 = res[i*3];
-									msb = res[1 + i*3];
-									lsb = res[2 + i*3];
-									//	# Convert the data to ampere
-									current = (msb1 * 65536 + msb * 256 + lsb) / 1000.0;
-									// return to the node's output
-									node.send({payload: {"amps":current}});
+									if ((i+1) == channel){										
+										//# Convert the data	
+										msb1 = res[i*3];
+										msb = res[1 + i*3];
+										lsb = res[2 + i*3];
+										//	# Convert the data to ampere
+										current = (msb1 * 65536 + msb * 256 + lsb) / 1000.0;
+										// return to the node's output
+										node.send({payload: {"amps":current}});
+									}
 								}
 							});
 						});
